@@ -1,8 +1,7 @@
-import process from "node:process"
-import { Interface } from "node:readline"
+import type { State } from "../state.js"
 
-export function commandExit(rl: Interface){
+export async function commandExit(state: State){
     console.log("Closing the Pokedex... Goodbye!")
-    rl.close()
-    process.exit(0)
+    state.readline.close();
+    process.exit(0);
 }

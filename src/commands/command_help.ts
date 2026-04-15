@@ -1,7 +1,8 @@
-import { CLICommand } from "src/state.js";
-import { Interface } from "readline";
+import type { State } from "../state.js";
 
-
-export function commandHelp(rl: Interface, commands: Record<string, CLICommand>){
-    console.log(`Welcome to the Pokedex! \nUsage: \n\nhelp: Displays a help message\nexit: Exit the Pokedex`)
+export async function commandHelp(state: State) {
+    console.log("\nWelcome to Pokedex!\nUsage:\n\n");
+    for (const cmd of Object.values(state.commands)) {
+        console.log(`${cmd.name}: ${cmd.description}`)
+    }
 }
