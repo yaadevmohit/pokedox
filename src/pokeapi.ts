@@ -3,7 +3,7 @@ import type { CacheEntry } from "./pokecache.js";
 
 export class PokeAPI {
   private static readonly baseURL = "https://pokeapi.co/api/v2";
-  #cache = new Cache(50000)
+  #cache = new Cache(300000)
 
   constructor() {
 
@@ -29,12 +29,19 @@ export class PokeAPI {
   }
 
   async fetchLocation(locationName: string): Promise<Location> {
+    const url = `${PokeAPI.baseURL}/location-area/${locationName}`;
+    const cachedLocation: Location | undefined = this.#cache.get(url)
+    if (cachedLocation) {
+        return cachedLocation
+    }
     try {
-      const res = await fetch(`${PokeAPI.baseURL}/location-area/${locationName}`);
+      const res = await fetch(url);
       if (!res.ok) {
         throw new Error(`Failed to fetch location data: ${res.status} ${res.statusText}`);
       }
-      return await res.json();
+      const location = await res.json();
+      this.#cache.add(url, location)
+      return location
     } catch (error) {
       throw new Error(`Error fetching location '${locationName}': ${(error as Error).message}`);
     }
@@ -49,16 +56,54 @@ export type ShallowLocations = {
 };
 
 export type Location = {
+  encounter_method_rates: {
+    encounter_method: {
+      name: string;
+      url: string;
+    };
+    version_details: {
+      rate: number;
+      version: {
+        name: string;
+        url: string;
+      };
+    }[];
+  }[];
+  game_index: number;
   id: number;
-  name: string;
-  region: { name: string; url: string } | null;
-  names: {
+  location: {
     name: string;
-    language: { name: string; url: string };
+    url: string;
+  };
+  name: string;
+  names: {
+    language: {
+      name: string;
+      url: string;
+    };
+    name: string;
   }[];
-  game_indices: {
-    game_index: number;
-    generation: { name: string; url: string };
+  pokemon_encounters: {
+    pokemon: {
+      name: string;
+      url: string;
+    };
+    version_details: {
+      encounter_details: {
+        chance: number;
+        condition_values: any[];
+        max_level: number;
+        method: {
+          name: string;
+          url: string;
+        };
+        min_level: number;
+      }[];
+      max_chance: number;
+      version: {
+        name: string;
+        url: string;
+      };
+    }[];
   }[];
-  areas: { name: string; url: string }[];
 };

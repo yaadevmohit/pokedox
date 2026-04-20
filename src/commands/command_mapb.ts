@@ -1,6 +1,4 @@
-import { PokeAPI } from "../pokeapi.js";
 import { State } from "../state.js";
-// const pokeApi = new PokeAPI()
 export async function commandMapBack(state: State) {
     if(!state.prevLocationsURL) {
         console.log("nowhere to map back to")

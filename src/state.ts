@@ -1,5 +1,5 @@
 import { createInterface, type Interface } from "node:readline";
-import { getCommands } from "./commands.js";
+import { getCommands } from "./commands/commands.js";
 import { PokeAPI } from "./pokeapi.js";
 
 
@@ -7,7 +7,7 @@ import { PokeAPI } from "./pokeapi.js";
 export type CLICommand = {
   name: string;
   description: string;
-  callback: (state: State) => Promise<void>;
+  callback: (state: State, ...args: string[]) => Promise<void>;
 };
 
 export interface State  {
