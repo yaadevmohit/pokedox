@@ -2,14 +2,9 @@
 > pokedex@1.0.0 dev
 > npx tsc && node dist/main.js
 
-Pokedex > tentacool
-tentacruel
-magikarp
-gyarados
-remoraid
-octillery
-wingull
-pelipper
-shellos
-gastrodon
+Pokedex > Throwing a Pokeball at squirtle...
+squirtle caught!
+Pokedex > Throwing a Pokeball at pikachu...
+couldn't catch pikachu...
+ try again
 Pokedex > Closing the Pokedex... Goodbye!

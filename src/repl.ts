@@ -13,6 +13,7 @@ export async function startREPL(state: State) {
         }
         const commandName = words[0]
         const cmd = state.commands[commandName];
+        const cmdParams = words.slice(1)
         
         if(!cmd) {
             console.log(
@@ -23,12 +24,7 @@ export async function startREPL(state: State) {
         }
 
         try {
-            if (commandName === "explore") {
-                await cmd.callback(state, words[1])
-            }
-            else {
-                await cmd.callback(state)
-            }
+            await cmd.callback(state, ...cmdParams)
         } catch (e) {
             console.log(e)
         }

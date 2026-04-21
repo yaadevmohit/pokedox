@@ -1,5 +1,5 @@
 import { Cache } from "./pokecache.js";
-import type { CacheEntry } from "./pokecache.js";
+import type { Pokemon } from "./types/pokemon.js";
 
 export class PokeAPI {
   private static readonly baseURL = "https://pokeapi.co/api/v2";
@@ -46,6 +46,25 @@ export class PokeAPI {
       throw new Error(`Error fetching location '${locationName}': ${(error as Error).message}`);
     }
   }
+
+  async fetchPokemon(name: string): Promise<Pokemon> {
+    const url = `${PokeAPI.baseURL}/pokemon/${name}`
+    const cachedPokemon: Pokemon | undefined = this.#cache.get(url)
+    if (cachedPokemon) {
+        return cachedPokemon
+    }
+    try {
+      const res = await fetch(url);
+      if (!res.ok) {
+        throw new Error(`Failed to fetch pokemon data: ${res.status} ${res.statusText}`);
+      }
+      const pokemon = await res.json();
+      this.#cache.add(url, pokemon)
+      return pokemon
+    } catch (error) {
+      throw new Error(`Error fetching pokemon '${name}': ${(error as Error).message}`);
+    }
+  } 
 }
 
 export type ShallowLocations = {
