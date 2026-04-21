@@ -1,4 +1,4 @@
-import { Cache } from "./pokecache.js";
+import { Cache } from "../src/pokecache.js";
 import { test, expect } from "vitest";
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
