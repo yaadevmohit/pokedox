@@ -1,24 +1,26 @@
-# Pokedex
-A command-line REPL built using PokéAPI. You can map forward and backward in the terminal to different location-area list.
+# Pokédex
+A command-line REPL built using PokéAPI. You can map forward and backward in the terminal to different location-area lists.
 
 ## How to get started
-1. clone the repo
-2. install dependencies: `npm install`
-3. run in dev mode `npm run dev`
+1. Clone the repo.
+2. Install dependencies: `npm install`.
+3. Run in dev mode: `npm run dev`.
 
-## available commands
-1. help: to see list of available commands and their usage
-2. map: to see next 20 locations
-3. mapb: same as map but backwards
-4. explore: explore more details about a certain locations
+## Available commands
+1. help: To see list of available commands and their usage.
+2. map: To see next 20 locations.
+3. mapb: Same as map but backwards.
+4. explore: Explore more details about certain locations.
+5. catch: To catch a Pokémon and add it to pokedex object in state. Don't catch if already in pokedex.
+6. inspect: Inspect a caught Pokémon in pokedex.
+7. pokedex: Print the names of all the Pokémon in pokedex.
 
 
 ## Understanding of how this project was built
-1. use repl loop which imported state type from state object.
-2. state is passed in the repl loop with createInterface (from node:readline) ??
-3. state returns readline to provide with input, output and prompt methods (located in commmands folder.)
-4. state also provide the pokeapi with the fetching methods.
-    * uses fetchlocations to fetch all location areas and uses caching
-    * uses fetchlocation to fetch a certain location details and uses caching
-    * caching implemented from imported from cache files
-
+1. Use REPL loop which imported state type from state object.
+2. State is passed in the REPL loop with createInterface (from node:readline).
+3. State returns readline to provide with input, output, and prompt methods (located in commands folder).
+4. State also provides the PokéAPI with the fetching methods.
+    * Uses fetchlocations to fetch all location areas and uses caching.
+    * Uses fetchlocation to fetch certain location details and uses caching.
+    * Caching implemented from imported cache files.
